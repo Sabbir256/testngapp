@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="angular/angular.min.js"></script>
+	<script src="scripts/app.js"></script>
+</head>
+<body>
+	<div ng-controller="documentController">
+		<div class="doc-container">
+			<div class="input-container">
+				<div class="invoice-container common-properties">
+					<div class="input-title-container">
+						<span class="title">Upload your files</span>
+						<!-- <span class="file-type">File should be Pdf, Txt</span> -->
+					</div>
+					<div class="drag-n-drop-container box">
+						<div class="drag-n-drop-inner">
+							<img class="upload-file-icon" src="icons/upload-to-cloud-file-icon.png" alt="upload file icon">
+							<span class="drag-n-drop-text">Drag & drop your files here</span>
+							<!-- <span class="file-size-limit">Max. File Size: 20MB</span> -->
+						</div>
+						<!-- <button>Upload File</button> -->
+					</div>
+					<div style="display:block;">
+						<span>Payable To</span>
+						<select name="payableToInput" id="payableToInput">
+							<option value="">--Select--</option>
+						</select>
+					</div>
+				</div>
+				<!-- <div class="short-fund-container common-properties">
+					<div class="input-container-header">
+						Upload Short Fund Proof
+					</div>
+					<div>
+						<button>Upload File</button>
+					</div>
+					<div>
+						<span>Paid To</span>
+						<select name="paidToInput" id="paidToInput">
+							<option value="">--Select--</option>
+						</select>
+					</div>
+				</div>
+				<div class="others-container common-properties">
+					<div class="input-container-header">
+						Upload Other Files
+					</div>
+					<div>
+						<button>Upload File</button>
+					</div>
+					<div>
+						<input type="checkbox" name="includeOtherFile" id="includeOtherFile">
+						<label for="includeOtherFile">include?</label>
+					</div>
+					<div>
+						<span>File Type</span>
+						<input type="text" name="fileTypeInput" id="fileTypeInput"/>
+					</div>
+					<div>
+						<span>Payee Associated</span>
+						<select name="payeeAssociatedInput" id="payeeAssociatedInput">
+							<option value="">--Select--</option>
+						</select>
+					</div>
+				</div> -->
+			</div>
+
+			<div class="file-list-container">
+				<div class="table-container">
+					<span>Funding Proof File List</span>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>File Type</th>
+								<th>Payee Associated</th>
+								<th>Include</th>
+								<th>Submission Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>MMP Capital Inc. - Invoice.pdf</td>
+								<td>Invoice</td>
+								<td>MMP Capital Inc.</td>
+								<td>{{true}}</td>
+								<td>{{demoDate}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
