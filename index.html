@@ -8,73 +8,111 @@
 	<link rel="stylesheet" href="style.css">
 	<script src="angular/angular.min.js"></script>
 	<script src="scripts/app.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 	<div ng-controller="documentController">
 		<div class="doc-container">
 			<div class="input-container">
-				<div class="invoice-container common-properties">
-					<div class="input-title-container">
-						<span class="title">Upload your files</span>
-						<!-- <span class="file-type">File should be Pdf, Txt</span> -->
-					</div>
-					<div class="drag-n-drop-container box">
-						<div class="drag-n-drop-inner">
-							<img class="upload-file-icon" src="icons/upload-to-cloud-file-icon.png" alt="upload file icon">
-							<span class="drag-n-drop-text">Drag & drop your files here</span>
-							<!-- <span class="file-size-limit">Max. File Size: 20MB</span> -->
+				<div>
+					<div class="invoice-container common-properties">
+						<div class="input-title-container">
+							<span class="title">Invoice</span>
 						</div>
-						<!-- <button>Upload File</button> -->
-					</div>
-					<div style="display:block;">
-						<span>Payable To</span>
-						<select name="payableToInput" id="payableToInput">
-							<option value="">--Select--</option>
-						</select>
+
+						<div class="drag-n-drop-container box droparea invoice" id="dropareaInvoice">
+							<div class="drag-n-drop-inner">
+								<span class="drag-n-drop-text">Drag & drop your files here</span>
+								<span class="drag-n-drop-hint">Max. File size: 5MB</span>
+							</div>
+						</div>
+
+						<input type="file" id="invoiceFile" style="display:None;" file-input="invoiceData.file">
+						
+						<div class="input-field-container">
+							<span>Payable To <span class="red-text">*</span></span>
+							<select required name="payableToInput" id="payableToInput" ng-model="invoiceData.payableTo">
+								<option value="">None</option>
+								<option ng-repeat="option in payeeAssociated" value="{{option}}">{{option}}</option>
+							</select>
+						</div>
+
+						<button class="submit-btn" ng-click="handleUpload('invoice')">Upload</button>
+
 					</div>
 				</div>
-				<!-- <div class="short-fund-container common-properties">
-					<div class="input-container-header">
-						Upload Short Fund Proof
-					</div>
-					<div>
-						<button>Upload File</button>
-					</div>
-					<div>
-						<span>Paid To</span>
-						<select name="paidToInput" id="paidToInput">
-							<option value="">--Select--</option>
-						</select>
+
+				<div>
+					<div class="short-fund-container common-properties">
+						<div class="input-title-container">
+							<span class="title">Short Fund Proof</span>
+						</div>
+
+						<div class="drag-n-drop-container box droparea short-fund" id="dropareaShortFund">
+							<div class="drag-n-drop-inner">
+								<span class="drag-n-drop-text">Drag & drop your files here</span>
+								<span class="drag-n-drop-hint">Max. File size: 5MB</span>
+							</div>
+						</div>
+
+						<input type="file" id="shortFundFile" style="display:None;" file-input="shortfundData.file">
+
+						<div class="input-field-container">
+							<span>Paid To <span class="red-text">*</span></span>
+							<select required name="paidToInput" id="paidToInput" ng-model="shortFundData.paidTo">
+								<option value="">None</option>
+								<option ng-repeat="option in payeeAssociated" value="{{option}}">{{option}}</option>
+							</select>
+						</div>
+
+						<button class="submit-btn" ng-click="handleUpload('short-fund')">Upload</button>
+
 					</div>
 				</div>
-				<div class="others-container common-properties">
-					<div class="input-container-header">
-						Upload Other Files
+
+				<div>
+					<div class="others-container common-properties">
+						<div class="input-title-container">
+							<span class="title">Others</span>
+						</div>
+
+						<div class="drag-n-drop-container box droparea others" id="dropareaOther">
+							<div class="drag-n-drop-inner">
+								<span class="drag-n-drop-text">Drag & drop your files here</span>
+								<span class="drag-n-drop-hint">Max. File size: 5MB</span>
+							</div>
+						</div>
+
+						<input type="file" id="othersFile" style="display:None;" file-input="othersData.uploadedFile">
+						
+						<div class="input-field-container">
+							<span>File Type <span class="red-text">*</span></span>
+							<input required type="text" name="fileTypeInput" id="fileTypeInput" ng-model="othersData.file"/>
+						</div>
+
+						<div class="input-field-container">
+							<span>Payee Associated <span class="red-text">*</span></span>
+							<select required name="payeeAssociatedInput" id="payeeAssociatedInput" ng-model="othersData.payeeAssociated">
+								<option value="">None</option>
+								<option ng-repeat="option in payeeAssociated" value="{{option}}">{{option}}</option>
+							</select>
+						</div>
+
+						<div class="input-checkbox-container">
+							<input type="checkbox" name="includeOtherFile" id="includeOtherFile">
+							<label for="includeOtherFile">include?</label>
+						</div>
+
+						<button class="submit-btn" ng-click="handleUpload('others')">Upload</button>
+
 					</div>
-					<div>
-						<button>Upload File</button>
-					</div>
-					<div>
-						<input type="checkbox" name="includeOtherFile" id="includeOtherFile">
-						<label for="includeOtherFile">include?</label>
-					</div>
-					<div>
-						<span>File Type</span>
-						<input type="text" name="fileTypeInput" id="fileTypeInput"/>
-					</div>
-					<div>
-						<span>Payee Associated</span>
-						<select name="payeeAssociatedInput" id="payeeAssociatedInput">
-							<option value="">--Select--</option>
-						</select>
-					</div>
-				</div> -->
+				</div>
 			</div>
 
 			<div class="file-list-container">
 				<div class="table-container">
-					<span>Funding Proof File List</span>
-					<table>
+					<span class="table-title">Funding Proof File List:</span>
+					<table class="documents-table">
 						<thead>
 							<tr>
 								<th>Name</th>
@@ -94,9 +132,70 @@
 							</tr>
 						</tbody>
 					</table>
+
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+<script>
+	$(document).ready(function() {
+		const droparea = $(".droparea");
+		
+		droparea.on(
+			'dragover',
+			function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+		});
+
+		droparea.on(
+			'dragenter',
+			function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+		})
+
+		droparea.on(
+			'dragleave',
+			function(e) {
+
+		});
+
+		$('#dropareaInvoice').on(
+			'drop',
+			function(e) {
+				e.preventDefault();
+				handleFileTransfer(e, 'invoiceFile');
+		});
+
+		$('#dropareaShortFund').on(
+			'drop',
+			function(e) {
+				e.preventDefault();
+				handleFileTransfer(e, 'shortFundFile');
+		});
+
+		$('#dropareaOther').on(
+			'drop',
+			function(e) {
+				e.preventDefault();
+				handleFileTransfer(e, 'othersFile');
+		});
+
+		function handleFileTransfer(event, elementIdName) {
+			if (event.originalEvent.dataTransfer && event.originalEvent.dataTransfer.files.length) {
+				const file = event.originalEvent.dataTransfer.files[0];
+				const dataTransfer = new DataTransfer();
+				dataTransfer.items.add(file);
+				
+				let fileInputElement = document.getElementById(elementIdName);
+				fileInputElement.files = dataTransfer.files;
+				console.log(elementIdName);
+			}
+		}
+	});
+</script>
 </html>
