@@ -27,8 +27,6 @@
 							</div>
 						</div>
 
-						<input type="file" id="invoiceFile" style="display:None;" file-input="invoiceData.file">
-						
 						<div class="input-field-container">
 							<span>Payable To <span class="red-text">*</span></span>
 							<select required name="payableToInput" id="payableToInput" ng-model="invoiceData.payableTo">
@@ -42,7 +40,7 @@
 					</div>
 				</div>
 
-				<div>
+				<!-- <div>
 					<div class="short-fund-container common-properties">
 						<div class="input-title-container">
 							<span class="title">Short Fund Proof</span>
@@ -84,7 +82,7 @@
 						</div>
 
 						<input type="file" id="othersFile" style="display:None;" file-input="othersData.uploadedFile">
-						
+
 						<div class="input-field-container">
 							<span>File Type <span class="red-text">*</span></span>
 							<input required type="text" name="fileTypeInput" id="fileTypeInput" ng-model="othersData.file"/>
@@ -106,7 +104,7 @@
 						<button class="submit-btn" ng-click="handleUpload('others')">Upload</button>
 
 					</div>
-				</div>
+				</div> -->
 			</div>
 
 			<div class="file-list-container">
@@ -141,7 +139,7 @@
 <script>
 	$(document).ready(function() {
 		const droparea = $(".droparea");
-		
+
 		droparea.on(
 			'dragover',
 			function(e) {
@@ -163,39 +161,6 @@
 			function(e) {
 
 		});
-
-		$('#dropareaInvoice').on(
-			'drop',
-			function(e) {
-				e.preventDefault();
-				handleFileTransfer(e, 'invoiceFile');
-		});
-
-		$('#dropareaShortFund').on(
-			'drop',
-			function(e) {
-				e.preventDefault();
-				handleFileTransfer(e, 'shortFundFile');
-		});
-
-		$('#dropareaOther').on(
-			'drop',
-			function(e) {
-				e.preventDefault();
-				handleFileTransfer(e, 'othersFile');
-		});
-
-		function handleFileTransfer(event, elementIdName) {
-			if (event.originalEvent.dataTransfer && event.originalEvent.dataTransfer.files.length) {
-				const file = event.originalEvent.dataTransfer.files[0];
-				const dataTransfer = new DataTransfer();
-				dataTransfer.items.add(file);
-				
-				let fileInputElement = document.getElementById(elementIdName);
-				fileInputElement.files = dataTransfer.files;
-				console.log(elementIdName);
-			}
-		}
 	});
 </script>
 </html>
