@@ -1,4 +1,3 @@
-
 *,
 *::before,
 *::after {
@@ -22,6 +21,7 @@ body{
   --select-border: #777;
   --select-focus: var(--blue);
   --primary: #2A5D84;
+  --red-custom: #de0a26;
 }
 
 .doc-container{
@@ -88,6 +88,55 @@ body{
   display: flex;
 }
 
+.upload-file-list-container{
+  font-family: inherit;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  position: relative;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  padding: 5px 10px;
+}
+.upload-file-list-container:hover{
+  border: 1px solid var(--black);
+}
+
+.file-name-icon-group{
+  display: flex;
+  align-items: center;
+}
+
+.upload-file-list--body{
+  font-size: 0.85rem;
+  color: var(--black);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.file-icon{
+  color: #4285F4;
+  font-size: 0.95rem;
+  padding: 5px 9px;
+  border-radius: 500px;
+  border: 1px solid #e2e2e2;
+}
+
+.file-name{
+  display: inline-block;
+  max-width: 150px;
+  padding: 0 5px;
+}
+
+.dlt-icon{
+  margin-left: .3rem;
+}
+
+.dlt-icon:hover{
+  cursor: pointer;
+  color: var(--red-custom);
+}
+
 .doc-container select {
   background-color: transparent;
   border: none;
@@ -119,8 +168,9 @@ body{
   background-color: var(--bg-faded-sky);
   border-radius: 3px;
   font-size: 13px;
-  font-family: 'Poppins', sans-serif;
+  font-family: inherit;
   margin-top: 4px;
+  color: var(--black);
 }
 
 .doc-container select:focus, input:focus{
