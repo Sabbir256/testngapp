@@ -17,102 +17,118 @@
 			<div class="input-container">
 				<div>
 					<div class="invoice-container common-properties">
-						<div class="input-title-container">
-							<span class="title">Invoice</span>
-						</div>
-
-						<div class="drag-n-drop-container box droparea invoice" id="dropareaInvoice">
-							<div class="drag-n-drop-inner">
-								<span class="drag-n-drop-text">Drag & drop your files here</span>
-								<span class="drag-n-drop-hint">Max. File size: 5MB</span>
+							<div class="input-title-container">
+									<span class="title">Invoice</span>
 							</div>
-						</div>
 
-						<div class="upload-file-list-container" ng-show="invoiceData.fileName != null">
-							<div class="upload-file-list--body">
-								<div class="file-name-icon-group">
-									<span class="file-icon"><i class="fa-solid fa-file"></i></span>
-									<span class="file-name">{{invoiceData.fileName}}</span>
-								</div>
-								<span class="dlt-icon" ng-click="resetFileBlob('invoice')"><i class="fa-solid fa-trash"></i></span>
+							<div class="drag-n-drop-container droparea invoice" id="dropareaInvoice">
+									<div class="drag-n-drop-inner">
+											<span class="drag-n-drop-text">Drag & drop your files here</span>
+											<span class="drag-n-drop-hint">Max. File size: 5MB</span>
+									</div>
 							</div>
-						</div>
 
-						<div class="input-field-container">
-							<span>Payable To <span class="red-text">*</span></span>
-							<select required name="payableToInput" id="payableToInput" ng-model="invoiceData.payableTo">
-								<option value="">None</option>
-								<option ng-repeat="option in payeeAssociated" value="{{option}}">{{option}}</option>
-							</select>
-						</div>
+							<div class="upload-file-list-container" ng-show="invoiceData.fileName != null">
+									<div class="upload-file-list--body">
+											<div class="file-name-icon-group">
+													<span class="file-icon"><i class="fa fa-file"></i></span>
+													<span class="file-name">{{invoiceData.fileName}}</span>
+											</div>
+											<span class="dlt-icon" ng-click="resetFileBlob('invoice')"><i class="fa fa-trash"></i></span>
+									</div>
+							</div>
 
-						<button class="submit-btn" ng-click="handleUpload('invoice')">Upload</button>
+							<div class="input-field-container">
+									<span>Payable To <span class="red-text">*</span></span>
+									<select required name="payableToInput" id="payableToInput" ng-model="invoiceData.payableTo">
+											<option value="">None</option>
+											<option ng-repeat="option in payeeAssociated" value="{{option.value}}">{{option.key}}</option>
+									</select>
+							</div>
+
+							<button class="submit-btn" ng-click="handleUpload('invoice')">Upload</button>
 
 					</div>
 				</div>
 
 				<div>
 					<div class="short-fund-container common-properties">
-						<div class="input-title-container">
-							<span class="title">Short Fund Proof</span>
-						</div>
-
-						<div class="drag-n-drop-container box droparea short-fund" id="dropareaShortFund">
-							<div class="drag-n-drop-inner">
-								<span class="drag-n-drop-text">Drag & drop your files here</span>
-								<span class="drag-n-drop-hint">Max. File size: 5MB</span>
+							<div class="input-title-container">
+									<span class="title">Short Fund Proof</span>
 							</div>
-						</div>
 
-						<input type="file" id="shortFundFile" style="display:None;" file-input="shortfundData.file">
+							<div class="drag-n-drop-container droparea short-fund" id="dropareaShortFund">
+									<div class="drag-n-drop-inner">
+											<span class="drag-n-drop-text">Drag & drop your files here</span>
+											<span class="drag-n-drop-hint">Max. File size: 5MB</span>
+									</div>
+							</div>
 
-						<div class="input-field-container">
-							<span>Paid To <span class="red-text">*</span></span>
-							<select required name="paidToInput" id="paidToInput" ng-model="shortFundData.paidTo">
-								<option value="">None</option>
-								<option ng-repeat="option in payeeAssociated" value="{{option}}">{{option}}</option>
-							</select>
-						</div>
+							<div class="upload-file-list-container" ng-show="shortFundData.fileName != null">
+									<div class="upload-file-list--body">
+											<div class="file-name-icon-group">
+													<span class="file-icon"><i class="fa fa-file"></i></span>
+													<span class="file-name">{{shortFundData.fileName}}</span>
+											</div>
+											<span class="dlt-icon" ng-click="resetFileBlob('Shortfund Proof')"><i class="fa fa-trash"></i></span>
+									</div>
+							</div>
 
-						<button class="submit-btn" ng-click="handleUpload('short-fund')">Upload</button>
+							<div class="input-field-container">
+									<span>Paid To <span class="red-text">*</span></span>
+									<select required name="paidToInput" id="paidToInput" ng-model="shortFundData.payableTo">
+											<option value="">None</option>
+											<option ng-repeat="option in payeeAssociated" value="{{option.value}}">{{option.key}}</option>
+									</select>
+							</div>
+
+							<button class="submit-btn" ng-click="handleUpload('Shortfund Proof')">Upload</button>
 
 					</div>
 				</div>
 
 				<div>
 					<div class="others-container common-properties">
-						<div class="input-title-container">
-							<span class="title">Others</span>
-						</div>
-
-						<div class="drag-n-drop-container box droparea others" id="dropareaOther">
-							<div class="drag-n-drop-inner">
-								<span class="drag-n-drop-text">Drag & drop your files here</span>
-								<span class="drag-n-drop-hint">Max. File size: 5MB</span>
+							<div class="input-title-container">
+									<span class="title">Others</span>
 							</div>
-						</div>
 
-						<input type="file" id="othersFile" style="display:None;" file-input="othersData.uploadedFile">
+							<div class="drag-n-drop-container droparea others" id="dropareaOther">
+									<div class="drag-n-drop-inner">
+											<span class="drag-n-drop-text">Drag & drop your files here</span>
+											<span class="drag-n-drop-hint">Max. File size: 5MB</span>
+									</div>
+							</div>
 
-						<div class="input-field-container">
-							<span>File Type <span class="red-text">*</span></span>
-							<input required type="text" name="fileTypeInput" id="fileTypeInput" ng-model="othersData.otherFileType"/>
-						</div>
+							<div class="upload-file-list-container" ng-show="othersData.fileName != null">
+									<div class="upload-file-list--body">
+											<div class="file-name-icon-group">
+													<span class="file-icon"><i class="fa fa-file"></i></span>
+													<span class="file-name">{{othersData.fileName}}</span>
+											</div>
+											<span class="dlt-icon" ng-click="resetFileBlob('others')"><i class="fa fa-trash"></i></span>
+									</div>
+							</div>
 
-						<div class="input-field-container">
-							<span>Payee Associated <span class="red-text">*</span></span>
-							<select required name="payeeAssociatedInput" id="payeeAssociatedInput" ng-model="othersData.payeeAssociated">
-								<option value="">None</option>
-								<option ng-repeat="option in payeeAssociated" value="{{option}}">{{option}}</option>
-							</select>
-						</div>
+							<div class="input-field-container">
+									<span>File Type <span class="red-text">*</span></span>
+									<input required type="text" name="fileTypeInput" id="fileTypeInput" ng-model="othersData.fileType"/>
+							</div>
 
-						<div class="input-checkbox-container">
-							<input type="checkbox" name="includeOtherFile" id="includeOtherFile">
-							<label for="includeOtherFile">include?</label>
-						</div>
+							<div class="input-field-container">
+									<span>Payee Associated <span class="red-text">*</span></span>
+									<select required name="payeeAssociatedInput" id="payeeAssociatedInput" ng-model="othersData.payableTo">
+											<option value="">None</option>
+											<option ng-repeat="option in payeeAssociated" value="{{option.value}}">{{option.key}}</option>
+									</select>
+							</div>
 
-						<button class="submit-btn" ng-click="handleUpload('others')">Upload</button>
+							<div class="input-checkbox-container">
+									<input type="checkbox" name="includeOtherFile" id="includeOtherFile">
+									<label for="includeOtherFile">include?</label>
+							</div>
+
+							<button class="submit-btn" ng-click="handleUpload('others')">Upload</button>
 
 					</div>
 				</div>
@@ -133,7 +149,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>MMP Capital Inc. - Invoice.pdf</td>
+								<td ng-click="downloadFromAzure()" class="file-name--td">MMP Capital Inc. - Invoice.pdf</td>
 								<td>Invoice</td>
 								<td>MMP Capital Inc.</td>
 								<td>{{true}}</td>
@@ -156,7 +172,6 @@
 			function(e) {
 				e.preventDefault();
 				e.stopPropagation();
-
 		});
 
 		droparea.on(
@@ -164,14 +179,31 @@
 			function(e) {
 				e.preventDefault();
 				e.stopPropagation();
-
 		})
 
-		droparea.on(
-			'dragleave',
-			function(e) {
+		$('#dropareaInvoice').on('dragover', function(e) {
+			$('#dropareaInvoice').addClass('drop-hover-class');
+		}).on('dragleave', function(e) {
+			$('#dropareaInvoice').removeClass('drop-hover-class');
+		}).on('drop', function(e) {
+			$('#dropareaInvoice').removeClass('drop-hover-class');
+		})
 
-		});
+		$('#dropareaShortFund').on('dragover', function(e) {
+			$('#dropareaShortFund').addClass('drop-hover-class');
+		}).on('dragleave', function(e) {
+			$('#dropareaShortFund').removeClass('drop-hover-class');
+		}).on('drop', function(e) {
+			$('#dropareaShortFund').removeClass('drop-hover-class');
+		})
+
+		$('#dropareaOther').on('dragover', function(e) {
+			$('#dropareaOther').addClass('drop-hover-class');
+		}).on('dragleave', function(e) {
+			$('#dropareaOther').removeClass('drop-hover-class');
+		}).on('drop', function(e) {
+			$('#dropareaOther').removeClass('drop-hover-class');
+		})
 	});
 </script>
 </html>

@@ -32,6 +32,7 @@ body{
 
 .input-container{
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   width: 50%;
 }
@@ -96,7 +97,17 @@ body{
   border: 1px solid #e2e2e2;
   border-radius: 8px;
   padding: 5px 10px;
+  background-color: #fff2ea;
 }
+.drop-hover-class{
+  background-color: #fcf1eb;
+}
+
+.file-name--td:hover{
+  cursor: pointer;
+  color: var(--primary);
+}
+
 .upload-file-list-container:hover{
   border: 1px solid var(--black);
 }
@@ -119,12 +130,12 @@ body{
   font-size: 0.95rem;
   padding: 5px 9px;
   border-radius: 500px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #777;
 }
 
 .file-name{
   display: inline-block;
-  max-width: 150px;
+  /* max-width: 150px; */
   padding: 0 5px;
 }
 
@@ -234,3 +245,19 @@ body{
   color: var(--black);
   font-size: 1.1rem;
 }
+
+@media only screen and (max-width: 1366px) {
+  .input-container{
+    width: 40%;
+  }
+
+  .file-list-container{
+    width: 60%;
+  }
+
+  .common-properties{
+    margin-bottom: 30px;
+  }
+}
+
+

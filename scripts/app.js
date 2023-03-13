@@ -1,30 +1,25 @@
 const app = angular.module("myapp", []);
 
 app.controller("documentController", function($scope) {
-  // $scope.demoDate = new Date().toLocaleDateString();
   $scope.invoiceData = {
     payableTo: '',
-    fileBlob: null,
-    fileName: null
+    fileName: null,
+    file: null
   }
 
   $scope.shortFundData = {
     paidTo: '',
-    fileBlob: null,
-    fileName: null
+    fileName: null,
+    file: null
   }
 
   $scope.othersData = {
     payeeAssociated: '',
     fileBlob: null,
     fileName: null,
-    otherFileType: null
+    otherFileType: null,
+    file: null
   }
-
-  // $scope.uploadedDocInfo = {
-  //   selectedType: '',
-  //   payeeAssociated: ''
-  // }
 
   $scope.availableTypes = [
     'Invoice',
@@ -49,7 +44,7 @@ app.controller("documentController", function($scope) {
     'drop',
     function(e) {
       e.preventDefault();
-      handleFileTransfer(e, 'shortFund');
+      handleFileTransfer(e, 'Shortfund Proof');
   });
 
   $('#dropareaOther').on(
@@ -66,19 +61,15 @@ app.controller("documentController", function($scope) {
 
       if (file) {
         reader.addEventListener("load", ()=>{
-          // console.log(`File: ${file.name} read successfully!`);
           if (fileType === 'invoice') {
-            $scope.invoiceData.fileBlob = getFileContent(reader.result);
             $scope.invoiceData.fileName = file.name;
-            console.log($scope.invoiceData);
-          } else if (fileType === 'shortFund') {
-            $scope.shortFundData.fileBlob = getFileContent(reader.result);
+            $scope.invoiceData.file = file;
+          } else if (fileType === 'Shortfund Proof') {
             $scope.shortFundData.fileName = file.name;
-            console.log($scope.shortFundData);
+            $scope.shortFundData.file = file;
           } else if (fileType === 'others') {
-            $scope.othersData.fileBlob = getFileContent(reader.result);
             $scope.othersData.fileName = file.name;
-            console.log($scope.othersData);
+            $scope.othersData.file = file;
           }
           
           $scope.$digest();
@@ -102,15 +93,100 @@ app.controller("documentController", function($scope) {
   $scope.resetFileBlob = function(fileType) {
     if (fileType === 'invoice') {
       $scope.invoiceData = {};
-    } else if (fileType === 'shortFund') {
+    } else if (fileType === 'Shortfund Proof') {
       $scope.shortFundData = {};
     } else {
       $scope.othersData = {};
     }
   }
 
+  function downloadFile(blob){
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    // a.style.display = 'none';
+    a.href = url;
+    a.download = 'demo file.txt';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  $scope.downloadFromAzure = function() {
+    console.log('started download process');
+    let endpoint = 'https://fnstest.nmef.com/fasttfilestore/applicationsDownload?filename=ALL/test-app/0796d014-ecff-46c0-9318-ea742a16c891.txt';
+
+    const req = fetch(endpoint, {
+      method: 'get',
+      headers: {
+        'Broker-Id': 'ALL',
+        'Ocp-Apim-Subscription-Key': 'e137f7544dea40e1ad246e2ec9c6454d'
+      }
+    });
+
+    req.then(
+      function(res) {
+        if(res.ok) {
+          return res.blob();
+        } else {
+          console.warn('Failed to download file from Azure File Store.\n Respose is ' + res.status);
+        }
+      },
+      function(error) {
+        console.error(error);
+      }
+    ).then((blob) => {
+      downloadFile(blob);
+    }
+    ).catch(err => {
+      console.error(err);
+    });
+  }
+
+  $scope.uploadToAzure = function(appShortName, brokerShortName, fileToUpload) {
+    let fd = new FormData();
+    fd.append('file', fileToUpload);
+
+    const url = 'https://fnstest.nmef.com/fasttfilestore/applications/' + appShortName;
+
+    const req = fetch(url, {
+      method: 'post',
+      body: fd,
+      headers: {
+        'Broker-Id': brokerShortName,
+        'Ocp-Apim-Subscription-Key': 'e137f7544dea40e1ad246e2ec9c6454d'
+      }
+    });
+
+    req.then(
+      function(res) {
+        if (res.ok) {
+          return res.text();
+        } else {
+          console.warn('Failed to upload file on Azure File Store.\nResponse Status Code: ' + res.status);
+        }
+      },
+      function(error) {
+        console.error(error);
+      }
+    ).then(azureFileUrl => {
+      console.log(azureFileUrl);
+      // create a document in the system
+
+    });
+  }
+
   $scope.handleUpload = function(fileType) {
-    console.log($scope.invoiceData);
-    console.log(fileType);
+    let file = null;
+
+    if (fileType === 'invoice') {
+      file = $scope.invoiceData.file;
+    } else if (fileType === 'Shortfund Proof') {
+      file = $scope.shortFundData.file;
+    } else {
+      file = $scope.othersData.file;
+    }
+
+    console.log(file);
+    $scope.uploadToAzure('A-100929', 'BR-133525', file);
   }
 });
