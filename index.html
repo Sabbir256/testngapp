@@ -23,7 +23,12 @@
 
 							<div class="drag-n-drop-container droparea invoice" id="dropareaInvoice">
 									<div class="drag-n-drop-inner">
-											<span class="drag-n-drop-text">Drag & drop your files here</span>
+											<span class="drag-n-drop-text">Drag your files here or 
+												<div style="display: inline;">
+													<input type="file" id="uploadVendorInvoice" hidden/>
+													<label for="uploadVendorInvoice" class="browse-btn">browse</label>
+												</div>
+											</span>
 											<span class="drag-n-drop-hint">Max. File size: 5MB</span>
 									</div>
 							</div>
@@ -42,7 +47,7 @@
 									<span>Payable To <span class="red-text">*</span></span>
 									<select required name="payableToInput" id="payableToInput" ng-model="invoiceData.payableTo">
 											<option value="">None</option>
-											<option ng-repeat="option in payeeAssociated" value="{{option.value}}">{{option.key}}</option>
+											<option ng-repeat="option in payeeAssociated" value="{{option}}">{{option}}</option>
 									</select>
 							</div>
 
@@ -59,7 +64,7 @@
 
 							<div class="drag-n-drop-container droparea short-fund" id="dropareaShortFund">
 									<div class="drag-n-drop-inner">
-											<span class="drag-n-drop-text">Drag & drop your files here</span>
+											<span class="drag-n-drop-text">Drag your file here or</span>
 											<span class="drag-n-drop-hint">Max. File size: 5MB</span>
 									</div>
 							</div>

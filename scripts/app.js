@@ -37,24 +37,49 @@ app.controller("documentController", function($scope) {
     'drop',
     function(e) {
       e.preventDefault();
-      handleFileTransfer(e, 'invoice');
+      $scope.handleFileTransfer(e, 'invoice');
   });
 
   $('#dropareaShortFund').on(
     'drop',
     function(e) {
       e.preventDefault();
-      handleFileTransfer(e, 'Shortfund Proof');
+      $scope.handleFileTransfer(e, 'Shortfund Proof');
   });
 
   $('#dropareaOther').on(
     'drop',
     function(e) {
       e.preventDefault();
-      handleFileTransfer(e, 'others');
+      $scope.handleFileTransfer(e, 'others');
   });
 
-  function handleFileTransfer(event, fileType) {
+  $('#uploadVendorInvoice').on(
+    'change',
+    function(e) {
+      e.preventDefault();
+      handleInputFileUpload(e, 'invoice');
+    }
+  )
+
+  function handleInputFileUpload(event, fileType) {
+		const file = event.target.files[0];
+
+		if (fileType === 'invoice') {
+      $scope.invoiceData.fileName = file.name;
+      $scope.invoiceData.file = file;
+    } else if (fileType === 'Shortfund Proof') {
+      $scope.shortFundData.fileName = file.name;
+      $scope.shortFundData.file = file;
+    } else if (fileType === 'others') {
+      $scope.othersData.fileName = file.name;
+      $scope.othersData.file = file;
+    }
+    
+    $scope.$digest();
+	}
+
+  $scope.handleFileTransfer = function(event, fileType) {
     if (event.originalEvent.dataTransfer && event.originalEvent.dataTransfer.files.length) {
       const file = event.originalEvent.dataTransfer.files[0];
       const reader = new FileReader();
@@ -185,6 +210,9 @@ app.controller("documentController", function($scope) {
     } else {
       file = $scope.othersData.file;
     }
+
+    console.log(file);
+    return;
 
     console.log(file);
     $scope.uploadToAzure('A-100929', 'BR-133525', file);
