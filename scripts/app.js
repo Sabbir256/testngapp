@@ -62,21 +62,46 @@ app.controller("documentController", function($scope) {
     }
   )
 
+  function trimFileName(fileName) {
+    let nameArray = fileName.split('.');
+    let name = nameArray[0];
+    let extension = nameArray[1];
+
+    if (name.length > 70) {
+      name = name.substring(0, 70);
+    }
+
+    return name + '.' + extension;
+  }
+
   function handleInputFileUpload(event, fileType) {
 		const file = event.target.files[0];
 
+    
+    const fileSize = (file.size)/(1024*1024);
+    if (fileSize > 5) {
+      alert('File size can not be greater than 5MB');
+      return;
+    }
+
+    let fileName = file.name;
+    if (fileName.length > 80) {
+      fileName = trimFileName(fileName)
+    }
+
 		if (fileType === 'invoice') {
-      $scope.invoiceData.fileName = file.name;
+      $scope.invoiceData.fileName = fileName;
       $scope.invoiceData.file = file;
     } else if (fileType === 'Shortfund Proof') {
-      $scope.shortFundData.fileName = file.name;
+      $scope.shortFundData.fileName = fileName;
       $scope.shortFundData.file = file;
     } else if (fileType === 'others') {
-      $scope.othersData.fileName = file.name;
+      $scope.othersData.fileName = fileName;
       $scope.othersData.file = file;
     }
     
     $scope.$digest();
+    console.log($scope.invoiceData);
 	}
 
   $scope.handleFileTransfer = function(event, fileType) {
