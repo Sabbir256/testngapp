@@ -1,217 +1,307 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myapp">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<script src="angular/angular.min.js"></script>
-	<script src="scripts/app.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-</head>
-<body>
-	<div ng-controller="documentController">
-		<div>
-			<button>Preview</button>
-		</div>
-		<div class="doc-container">
-			<div class="input-container">
-				<div>
-					<div class="invoice-container common-properties">
-							<div class="input-title-container">
-									<span class="title">Invoice</span>
-							</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="angular/angular.min.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+  <body>
+    <div ng-controller="documentController">
+      <div class="button-container">
+        <button class="primary-btn" ng-click="openPreviewWindow">Preview</button>
+      </div>
 
-							<div class="drag-n-drop-container droparea invoice" id="dropareaInvoice">
-									<div class="drag-n-drop-inner">
-											<span class="drag-n-drop-text">Drag your files here or 
-												<div style="display: inline;">
-													<input type="file" id="uploadVendorInvoice" hidden/>
-													<label for="uploadVendorInvoice" class="browse-btn">browse</label>
-												</div>
-											</span>
-											<span class="drag-n-drop-hint">Max. File size: 5MB</span>
-									</div>
-							</div>
+      <div class="doc-container">
+        <div class="input-container">
+          <div>
+            <div class="invoice-container common-properties">
+              <div class="input-title-container">
+                <span class="title">Invoice</span>
+              </div>
 
-							<div class="upload-file-list-container" ng-show="invoiceData.fileName != null">
-									<div class="upload-file-list--body">
-											<div class="file-name-icon-group">
-													<span class="file-icon"><i class="fa fa-file"></i></span>
-													<span class="file-name">{{invoiceData.fileName}}</span>
-											</div>
-											<span class="dlt-icon" ng-click="resetFileBlob('invoice')"><i class="fa fa-trash"></i></span>
-									</div>
-							</div>
+              <div
+                class="drag-n-drop-container droparea invoice"
+                id="dropareaInvoice"
+              >
+                <div class="drag-n-drop-inner">
+                  <span class="drag-n-drop-text"
+                    >Drag your files here or
+                    <div style="display: inline">
+                      <input type="file" id="uploadVendorInvoice" hidden />
+                      <label for="uploadVendorInvoice" class="browse-btn"
+                        >browse</label
+                      >
+                    </div>
+                  </span>
+                  <span class="drag-n-drop-hint">Max. File size: 5MB</span>
+                </div>
+              </div>
 
-							<div class="input-field-container">
-									<span>Payable To <span class="red-text">*</span></span>
-									<select required name="payableToInput" id="payableToInput" ng-model="invoiceData.payableTo">
-											<option value="">None</option>
-											<option ng-repeat="option in payeeAssociated" value="{{option}}">{{option}}</option>
-									</select>
-							</div>
+              <div
+                class="upload-file-list-container"
+                ng-show="invoiceData.fileName != null"
+              >
+                <div class="upload-file-list--body">
+                  <div class="file-name-icon-group">
+                    <span class="file-icon"><i class="fa fa-file"></i></span>
+                    <span class="file-name">{{invoiceData.fileName}}</span>
+                  </div>
+                  <span class="dlt-icon" ng-click="resetFileBlob('invoice')"
+                    ><i class="fa fa-trash"></i
+                  ></span>
+                </div>
+              </div>
 
-							<button class="submit-btn" ng-click="handleUpload('invoice')">Upload</button>
+              <div class="input-field-container">
+                <span>Payable To <span class="red-text">*</span></span>
+                <select
+                  required
+                  name="payableToInput"
+                  id="payableToInput"
+                  ng-model="invoiceData.payableTo"
+                >
+                  <option value="">None</option>
+                  <option
+                    ng-repeat="option in payeeAssociated"
+                    value="{{option}}"
+                  >
+                    {{option}}
+                  </option>
+                </select>
+              </div>
 
-					</div>
-				</div>
+              <button class="submit-btn" ng-click="handleUpload('invoice')">
+                Upload
+              </button>
+            </div>
+          </div>
 
-				<div>
-					<div class="short-fund-container common-properties">
-							<div class="input-title-container">
-									<span class="title">Short Fund Proof</span>
-							</div>
+          <div>
+            <div class="short-fund-container common-properties">
+              <div class="input-title-container">
+                <span class="title">Short Fund Proof</span>
+              </div>
 
-							<div class="drag-n-drop-container droparea short-fund" id="dropareaShortFund">
-									<div class="drag-n-drop-inner">
-											<span class="drag-n-drop-text">Drag your file here or</span>
-											<span class="drag-n-drop-hint">Max. File size: 5MB</span>
-									</div>
-							</div>
+              <div
+                class="drag-n-drop-container droparea short-fund"
+                id="dropareaShortFund"
+              >
+                <div class="drag-n-drop-inner">
+                  <span class="drag-n-drop-text">Drag your file here or</span>
+                  <span class="drag-n-drop-hint">Max. File size: 5MB</span>
+                </div>
+              </div>
 
-							<div class="upload-file-list-container" ng-show="shortFundData.fileName != null">
-									<div class="upload-file-list--body">
-											<div class="file-name-icon-group">
-													<span class="file-icon"><i class="fa fa-file"></i></span>
-													<span class="file-name">{{shortFundData.fileName}}</span>
-											</div>
-											<span class="dlt-icon" ng-click="resetFileBlob('Shortfund Proof')"><i class="fa fa-trash"></i></span>
-									</div>
-							</div>
+              <div
+                class="upload-file-list-container"
+                ng-show="shortFundData.fileName != null"
+              >
+                <div class="upload-file-list--body">
+                  <div class="file-name-icon-group">
+                    <span class="file-icon"><i class="fa fa-file"></i></span>
+                    <span class="file-name">{{shortFundData.fileName}}</span>
+                  </div>
+                  <span
+                    class="dlt-icon"
+                    ng-click="resetFileBlob('Shortfund Proof')"
+                    ><i class="fa fa-trash"></i
+                  ></span>
+                </div>
+              </div>
 
-							<div class="input-field-container">
-									<span>Paid To <span class="red-text">*</span></span>
-									<select required name="paidToInput" id="paidToInput" ng-model="shortFundData.payableTo">
-											<option value="">None</option>
-											<option ng-repeat="option in payeeAssociated" value="{{option.value}}">{{option.key}}</option>
-									</select>
-							</div>
+              <div class="input-field-container">
+                <span>Paid To <span class="red-text">*</span></span>
+                <select
+                  required
+                  name="paidToInput"
+                  id="paidToInput"
+                  ng-model="shortFundData.payableTo"
+                >
+                  <option value="">None</option>
+                  <option
+                    ng-repeat="option in payeeAssociated"
+                    value="{{option.value}}"
+                  >
+                    {{option.key}}
+                  </option>
+                </select>
+              </div>
 
-							<button class="submit-btn" ng-click="handleUpload('Shortfund Proof')">Upload</button>
+              <button
+                class="submit-btn"
+                ng-click="handleUpload('Shortfund Proof')"
+              >
+                Upload
+              </button>
+            </div>
+          </div>
 
-					</div>
-				</div>
+          <div>
+            <div class="others-container common-properties">
+              <div class="input-title-container">
+                <span class="title">Others</span>
+              </div>
 
-				<div>
-					<div class="others-container common-properties">
-							<div class="input-title-container">
-									<span class="title">Others</span>
-							</div>
+              <div
+                class="drag-n-drop-container droparea others"
+                id="dropareaOther"
+              >
+                <div class="drag-n-drop-inner">
+                  <span class="drag-n-drop-text"
+                    >Drag & drop your files here</span
+                  >
+                  <span class="drag-n-drop-hint">Max. File size: 5MB</span>
+                </div>
+              </div>
 
-							<div class="drag-n-drop-container droparea others" id="dropareaOther">
-									<div class="drag-n-drop-inner">
-											<span class="drag-n-drop-text">Drag & drop your files here</span>
-											<span class="drag-n-drop-hint">Max. File size: 5MB</span>
-									</div>
-							</div>
+              <div
+                class="upload-file-list-container"
+                ng-show="othersData.fileName != null"
+              >
+                <div class="upload-file-list--body">
+                  <div class="file-name-icon-group">
+                    <span class="file-icon"><i class="fa fa-file"></i></span>
+                    <span class="file-name">{{othersData.fileName}}</span>
+                  </div>
+                  <span class="dlt-icon" ng-click="resetFileBlob('others')"
+                    ><i class="fa fa-trash"></i
+                  ></span>
+                </div>
+              </div>
 
-							<div class="upload-file-list-container" ng-show="othersData.fileName != null">
-									<div class="upload-file-list--body">
-											<div class="file-name-icon-group">
-													<span class="file-icon"><i class="fa fa-file"></i></span>
-													<span class="file-name">{{othersData.fileName}}</span>
-											</div>
-											<span class="dlt-icon" ng-click="resetFileBlob('others')"><i class="fa fa-trash"></i></span>
-									</div>
-							</div>
+              <div class="input-field-container">
+                <span>File Type <span class="red-text">*</span></span>
+                <input
+                  required
+                  type="text"
+                  name="fileTypeInput"
+                  id="fileTypeInput"
+                  ng-model="othersData.fileType"
+                />
+              </div>
 
-							<div class="input-field-container">
-									<span>File Type <span class="red-text">*</span></span>
-									<input required type="text" name="fileTypeInput" id="fileTypeInput" ng-model="othersData.fileType"/>
-							</div>
+              <div class="input-field-container">
+                <span>Payee Associated <span class="red-text">*</span></span>
+                <select
+                  required
+                  name="payeeAssociatedInput"
+                  id="payeeAssociatedInput"
+                  ng-model="othersData.payableTo"
+                >
+                  <option value="">None</option>
+                  <option
+                    ng-repeat="option in payeeAssociated"
+                    value="{{option.value}}"
+                  >
+                    {{option.key}}
+                  </option>
+                </select>
+              </div>
 
-							<div class="input-field-container">
-									<span>Payee Associated <span class="red-text">*</span></span>
-									<select required name="payeeAssociatedInput" id="payeeAssociatedInput" ng-model="othersData.payableTo">
-											<option value="">None</option>
-											<option ng-repeat="option in payeeAssociated" value="{{option.value}}">{{option.key}}</option>
-									</select>
-							</div>
+              <div class="input-checkbox-container">
+                <input
+                  type="checkbox"
+                  name="includeOtherFile"
+                  id="includeOtherFile"
+                />
+                <label for="includeOtherFile">include?</label>
+              </div>
 
-							<div class="input-checkbox-container">
-									<input type="checkbox" name="includeOtherFile" id="includeOtherFile">
-									<label for="includeOtherFile">include?</label>
-							</div>
+              <button class="submit-btn" ng-click="handleUpload('others')">
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
 
-							<button class="submit-btn" ng-click="handleUpload('others')">Upload</button>
+        <div class="file-list-container">
+          <div class="table-container">
+            <span class="table-title">Funding Proof File List:</span>
+            <table class="documents-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>File Type</th>
+                  <th>Payee Associated</th>
+                  <th>Include</th>
+                  <th>Submission Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td ng-click="downloadFromAzure()" class="file-name--td">
+                    MMP Capital Inc. - Invoice.pdf
+                  </td>
+                  <td>Invoice</td>
+                  <td>MMP Capital Inc.</td>
+                  <td>{{true}}</td>
+                  <td>{{demoDate}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function () {
+      const droparea = $(".droparea");
 
-					</div>
-				</div>
-			</div>
+      droparea.on("dragover", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      });
 
-			<div class="file-list-container">
-				<div class="table-container">
-					<span class="table-title">Funding Proof File List:</span>
-					<table class="documents-table">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>File Type</th>
-								<th>Payee Associated</th>
-								<th>Include</th>
-								<th>Submission Date</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td ng-click="downloadFromAzure()" class="file-name--td">MMP Capital Inc. - Invoice.pdf</td>
-								<td>Invoice</td>
-								<td>MMP Capital Inc.</td>
-								<td>{{true}}</td>
-								<td>{{demoDate}}</td>
-							</tr>
-						</tbody>
-					</table>
+      droparea.on("dragenter", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      });
 
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
-<script>
-	$(document).ready(function() {
-		const droparea = $(".droparea");
+      $("#dropareaInvoice")
+        .on("dragover", function (e) {
+          $("#dropareaInvoice").addClass("drop-hover-class");
+        })
+        .on("dragleave", function (e) {
+          $("#dropareaInvoice").removeClass("drop-hover-class");
+        })
+        .on("drop", function (e) {
+          $("#dropareaInvoice").removeClass("drop-hover-class");
+        });
 
-		droparea.on(
-			'dragover',
-			function(e) {
-				e.preventDefault();
-				e.stopPropagation();
-		});
+      $("#dropareaShortFund")
+        .on("dragover", function (e) {
+          $("#dropareaShortFund").addClass("drop-hover-class");
+        })
+        .on("dragleave", function (e) {
+          $("#dropareaShortFund").removeClass("drop-hover-class");
+        })
+        .on("drop", function (e) {
+          $("#dropareaShortFund").removeClass("drop-hover-class");
+        });
 
-		droparea.on(
-			'dragenter',
-			function(e) {
-				e.preventDefault();
-				e.stopPropagation();
-		})
-
-		$('#dropareaInvoice').on('dragover', function(e) {
-			$('#dropareaInvoice').addClass('drop-hover-class');
-		}).on('dragleave', function(e) {
-			$('#dropareaInvoice').removeClass('drop-hover-class');
-		}).on('drop', function(e) {
-			$('#dropareaInvoice').removeClass('drop-hover-class');
-		})
-
-		$('#dropareaShortFund').on('dragover', function(e) {
-			$('#dropareaShortFund').addClass('drop-hover-class');
-		}).on('dragleave', function(e) {
-			$('#dropareaShortFund').removeClass('drop-hover-class');
-		}).on('drop', function(e) {
-			$('#dropareaShortFund').removeClass('drop-hover-class');
-		})
-
-		$('#dropareaOther').on('dragover', function(e) {
-			$('#dropareaOther').addClass('drop-hover-class');
-		}).on('dragleave', function(e) {
-			$('#dropareaOther').removeClass('drop-hover-class');
-		}).on('drop', function(e) {
-			$('#dropareaOther').removeClass('drop-hover-class');
-		})
-	});
-</script>
+      $("#dropareaOther")
+        .on("dragover", function (e) {
+          $("#dropareaOther").addClass("drop-hover-class");
+        })
+        .on("dragleave", function (e) {
+          $("#dropareaOther").removeClass("drop-hover-class");
+        })
+        .on("drop", function (e) {
+          $("#dropareaOther").removeClass("drop-hover-class");
+        });
+    });
+  </script>
 </html>
